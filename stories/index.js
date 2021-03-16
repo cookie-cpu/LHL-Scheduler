@@ -99,6 +99,14 @@ storiesOf("InterviewerListItem", module)
       avatar={interviewer.avatar}
       setInterviewer={action("setInterviewer")}
     />
+  ))
+  .add("Clickable-Refactor", () => (
+    <InterviewerListItem
+      id={interviewer.id}
+      name={interviewer.name}
+      avatar={interviewer.avatar}
+      setInterviewer={event => action("setInterviewer")(interviewer.id)}
+    />
   ));
 
 
@@ -124,6 +132,20 @@ storiesOf("InterviewerList", module)
     <InterviewerList
       interviewers={interviewers}
       interviewer={3}
+      setInterviewer={action("setInterviewer")}
+    />
+  ))
+  .add("Preselected2", () => (
+    <InterviewerList
+      interviewers={interviewers}
+      interviewer={4}
+      setInterviewer={action("setInterviewer")}
+    />
+  ))
+  .add("Preselected3", () => (
+    <InterviewerList
+      interviewers={interviewers}
+      interviewer={5}
       setInterviewer={action("setInterviewer")}
     />
   ));
