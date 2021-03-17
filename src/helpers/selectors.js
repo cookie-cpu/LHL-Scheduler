@@ -11,7 +11,7 @@
 // If there are no appointments on the given day, our days data will be empty we should return an empty array.
 
 
-export function getAppointmentsForDay(state, day) {
+export default function getAppointmentsForDay(state, day) {
  
   const output = [];
 

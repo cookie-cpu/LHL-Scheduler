@@ -2,60 +2,14 @@ import React, { useState, useEffect } from "react";
 import "components/Application.scss";
 import DayList from 'components/DayList'
 import Appointment from './Appointment'
+import getAppointmentsForDay from '../helpers/selectors'
 const axios = require('axios');
 
-
-
-const appointments = [
-  {
-    id: 1,
-    time: "12pm",
-  },
-  {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 1,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  },
-  {
-    id: 3,
-    time: "2pm",
-  },
-  {
-    id: 4,
-    time: "3pm",
-    interview: {
-      student: "Sylvia Palmer",
-      interviewer: {
-        id: 1,
-        name: "Lydia Miller-Jones",
-        avatar: "https://i.imgur.com/FK8V841.jpg",
-      }
-    }
-  },
-  {
-    id: 5,
-    time: "4pm",
-  },
-  {
-    id: 6,
-    time: "6pm",
-    interview: {
-      student: "Sylvia Miller-Jones",
-      interviewer: {
-        id: 1,
-        name: "Lydia Palmer",
-        avatar: "https://i.imgur.com/T2WwVfS.png",
-      }
-    }
-  }
-];
+/* API Routes
+"GET_DAYS":     http://localhost:8001/api/days,
+"GET_APPOINTMENTS": http://localhost:8001/api/appointments,
+"GET_INTERVIEWERS": http://localhost:8001/api/interviewers,
+*/
 
 export default function Application(props) {
   // const [day, setDay] = useState("Monday");
@@ -66,23 +20,28 @@ export default function Application(props) {
     days: [],
     appointments: {}
   });
+  const dailyAppointments = [];
 
   const setDay = day => setState({ ...state, day });
-  const setDays = (days) => setState((previous) => ({ ...previous, days }));
-
-
+  // const setDays = (days) => setState((previous) => ({ ...previous, days }));
 
   useEffect(() => {
-    axios.get('http://localhost:8001/api/days')
-    .then((response) => {
-      setDays([...response.data]);
+
+    Promise.all([
+      axios.get('http://localhost:8001/api/days'),
+      axios.get('http://localhost:8001/api/appointments')
+    ])
+    .then((response)=>{
+     setState(previous => (
+       {...previous,
+        days:response[0].data,
+        appointments:response[1].data}))
     })
-   
   }, [])
 
   
-
-  const listOfAppointments = appointments.map((appointment)=>{
+  
+  const listOfAppointments = getAppointmentsForDay(state, state.day).map((appointment)=>{
     return (
       <Appointment key={appointment.id} {...appointment} />
     )
