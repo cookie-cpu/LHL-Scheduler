@@ -12,9 +12,7 @@ const axios = require('axios');
 */
 
 export default function Application(props) {
-  // const [day, setDay] = useState("Monday");
-  // const [days, setDays] = useState([]);
-  // const [appointments, setAppointments] = useState({})
+ 
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -23,10 +21,9 @@ export default function Application(props) {
   });
 
   const setDay = day => setState({ ...state, day });
-  // const setDays = (days) => setState((previous) => ({ ...previous, days }));
+  
 
   useEffect(() => {
-
     Promise.all([
       axios.get('http://localhost:8001/api/days'),
       axios.get('http://localhost:8001/api/appointments'),
@@ -42,13 +39,9 @@ export default function Application(props) {
     })
   }, [])
 
-  
-  
-  // const listOfAppointments = getAppointmentsForDay(state, state.day).map((appointment)=>{
-  //   return (
-  //     <Appointment key={appointment.id} {...appointment} />
-  //   )
-  // })
+  function bookInterview(id, interview){
+    console.log(id, interview);
+  };
 
   const appointments = getAppointmentsForDay(state, state.day);
   const schedule = appointments.map((appointment)=>{
@@ -59,9 +52,16 @@ export default function Application(props) {
        id={appointment.id}
        time={appointment.time}
        interview={interview}
+       interviewers={[]}
+       bookInterview={bookInterview}
        />
     )
   })
+
+
+  
+
+  
 
   return (
     <main className="layout">
