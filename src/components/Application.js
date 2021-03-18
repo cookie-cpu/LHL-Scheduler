@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "components/Application.scss";
 import DayList from 'components/DayList'
 import Appointment from './Appointment'
-import {getAppointmentsForDay, getInterview} from '../helpers/selectors'
+import {getAppointmentsForDay, getInterview, getInterviewersForDay} from '../helpers/selectors'
 const axios = require('axios');
 
 /* API Routes
@@ -39,11 +39,29 @@ export default function Application(props) {
     })
   }, [])
 
+
   function bookInterview(id, interview){
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    setState({
+      ...state,
+      appointments
+    });
     console.log(id, interview);
   };
 
+
+  
   const appointments = getAppointmentsForDay(state, state.day);
+  
+  const interviewers = getInterviewersForDay(state, state.day);
+
   const schedule = appointments.map((appointment)=>{
     const interview = getInterview(state, appointment.interview);
     return (
@@ -52,7 +70,7 @@ export default function Application(props) {
        id={appointment.id}
        time={appointment.time}
        interview={interview}
-       interviewers={[]}
+       interviewers={interviewers}
        bookInterview={bookInterview}
        />
     )
