@@ -31,8 +31,14 @@ export default function useApplicationData (){
 
   /*
   Where is the value of "spots" stored for each day?
+   //State.days
+
   When should that value change?
+   //On creation and deletion 
+
   How can we calculate how many spots should be available?
+  //
+
   */
   function spotUpdate(){
 
@@ -49,14 +55,20 @@ export default function useApplicationData (){
       [id]: appointment
     };
 
-    setState({
-      ...state,
-      appointments
-    });
+    
 
     console.log(`id: ${id}, interviewer: ${interview}`);
+
+
     return axios.put(`/api/appointments/${id}`, appointment)
     .then(response =>console.log("PUT res:",response))
+    .then(() =>{
+      setState({
+        ...state,
+        appointments,
+        //days: spotUpdate()
+      });
+    })
   };
 
   
@@ -74,7 +86,8 @@ export default function useApplicationData (){
     .then(() =>{
       setState(() => ({
         ...state,
-        appointments
+        appointments,
+        //days: spotUpdate()
       }));
     })
   }
