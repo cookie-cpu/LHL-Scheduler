@@ -30,6 +30,12 @@ export default function Appointment(props) {
   const onCancel = function () {
     back();
   }
+  
+  function onDelete (id) {
+    props.cancelInterview(id)
+  }
+
+
   function save(name, interviewer) {
     
     const interview = {
@@ -53,6 +59,7 @@ export default function Appointment(props) {
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
+          onDelete={onDelete(props.id)}
         />
       )}
 
