@@ -54,6 +54,7 @@ export default function Application(props) {
       appointments
     });
     console.log(id, interview);
+
     axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
     .then(response =>console.log(response))
   

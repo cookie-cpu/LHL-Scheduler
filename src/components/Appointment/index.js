@@ -5,11 +5,13 @@ import Header from '../Appointment/Header'
 import Show from '../Appointment/Show'
 import Empty from '../Appointment/Empty'
 import Form from '../Appointment/Form'
+import Status from '../Appointment/Status'
 
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
+const SAVING = "SAVING";
 
 
 export default function Appointment(props) {
@@ -29,12 +31,16 @@ export default function Appointment(props) {
     back();
   }
   function save(name, interviewer) {
+    
     const interview = {
       student: name,
       interviewer
     };
+    transition(SAVING);
     props.bookInterview(props.id, interview)
     transition(SHOW);
+   
+   
   }
 
   return (
@@ -56,6 +62,10 @@ export default function Appointment(props) {
           onSave={save}
           onCancel={onCancel}>
         </Form>
+      }
+
+      {mode === SAVING && 
+        <Status/>
       }
 
     </article>
