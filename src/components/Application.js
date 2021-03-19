@@ -57,13 +57,13 @@ export default function Application(props) {
 
     console.log(id, interview);
     axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
-    .then(response =>console.log(response))
+    .then(response =>console.log("PUT res:",response))
   };
 
   function cancelInterview(id){
-    console.log(id);
+    console.log(`id for delete: ${id}`);
     axios.delete(`http://localhost:8001/api/appointments/${id}`, null)
-    .then(response =>console.log(response))
+    .then(response =>console.log("DELETE res:",response))
   }
 
 
