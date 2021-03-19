@@ -31,12 +31,12 @@ export default function Appointment(props) {
     back();
   }
   
-  function onDelete (id) {
-    props.cancelInterview(id)
+  const onDelete = function () {
+    props.cancelInterview(props.id)
   }
 
 
-  function save(name, interviewer) {
+  function onSave(name, interviewer) {
     
     const interview = {
       student: name,
@@ -59,14 +59,14 @@ export default function Appointment(props) {
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
-          onDelete={onDelete(props.id)}
+          onDelete={onDelete}
         />
       )}
 
       {mode === CREATE && 
         <Form
           interviewers={props.interviewers}
-          onSave={save}
+          onSave={onSave}
           onCancel={onCancel}>
         </Form>
       }

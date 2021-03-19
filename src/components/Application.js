@@ -25,9 +25,9 @@ export default function Application(props) {
 
   useEffect(() => {
     Promise.all([
-      axios.get('http://localhost:8001/api/days'),
-      axios.get('http://localhost:8001/api/appointments'),
-      axios.get('http://localhost:8001/api/interviewers')
+      axios.get('/api/days'),
+      axios.get('/api/appointments'),
+      axios.get('/api/interviewers')
     ])
     .then((response)=>{
       console.log(response)
@@ -56,14 +56,23 @@ export default function Application(props) {
     });
 
     console.log(id, interview);
-    axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
+    axios.put(`/api/appointments/${id}`, appointment)
     .then(response =>console.log("PUT res:",response))
   };
 
   function cancelInterview(id){
+    const newAppointment = {
+      ...state.appointments[id],
+      interview: null,
+    };
+    
+    
     console.log(`id for delete: ${id}`);
-    axios.delete(`http://localhost:8001/api/appointments/${id}`, null)
+    axios.delete(`/api/appointments/${id}`, null)
     .then(response =>console.log("DELETE res:",response))
+    .then(() =>{
+      
+    })
   }
 
 
@@ -122,7 +131,9 @@ export default function Application(props) {
       <section className="schedule">
         
         {schedule}
+
         <Appointment key="last" time="7pm" />
+        
       </section>
 
     </main>
