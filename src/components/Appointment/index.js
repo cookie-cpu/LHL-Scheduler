@@ -6,12 +6,15 @@ import Show from '../Appointment/Show'
 import Empty from '../Appointment/Empty'
 import Form from '../Appointment/Form'
 import Status from '../Appointment/Status'
+import Confirm from '../Appointment/Confirm'
 
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
+const DELETING = "DELETING";
+const CONFIRM = "CONFIRM";
 
 
 export default function Appointment(props) {
@@ -31,10 +34,6 @@ export default function Appointment(props) {
     back();
   }
   
-  const onDelete = function () {
-    props.cancelInterview(props.id)
-  }
-
 
   function onSave(name, interviewer) {
     
@@ -45,8 +44,18 @@ export default function Appointment(props) {
     transition(SAVING);
     props.bookInterview(props.id, interview)
     transition(SHOW);
-   
-   
+
+  }
+
+
+  const onDelete = function () {
+    props.cancelInterview(props.id)
+  }
+
+  const handleDelete = function(){
+    transition(CONFIRM)
+    console.log("delete called");
+    
   }
 
   return (
@@ -59,7 +68,8 @@ export default function Appointment(props) {
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
-          onDelete={onDelete}
+          onDelete={()=>transition(CONFIRM)}
+          onEdit={()=>console.log("edit called")}
         />
       )}
 
@@ -71,10 +81,18 @@ export default function Appointment(props) {
         </Form>
       }
 
-      {mode === SAVING && 
-        <Status/>
-      }
-
+     
+      {mode === CONFIRM && (
+        <Confirm
+          onCancel={() => transition(SHOW)}
+          onConfirm={() => {
+            transition(DELETING);
+            props.cancelInterview(props.id)
+            transition(EMPTY);
+          }}
+          message={DELETING}
+        />
+      )}
     </article>
   );
 }

@@ -60,18 +60,23 @@ export default function Application(props) {
     .then(response =>console.log("PUT res:",response))
   };
 
+  
   function cancelInterview(id){
     const newAppointment = {
       ...state.appointments[id],
       interview: null,
     };
-    
+    const appointments = { ...state.appointments, [id]: newAppointment };
     
     console.log(`id for delete: ${id}`);
-    axios.delete(`/api/appointments/${id}`, null)
+
+    axios.delete(`/api/appointments/${id}`, )
     .then(response =>console.log("DELETE res:",response))
     .then(() =>{
-      
+      setState(() => ({
+        ...state,
+        appointments
+      }));
     })
   }
 
