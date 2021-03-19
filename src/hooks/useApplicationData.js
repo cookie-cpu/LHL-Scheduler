@@ -40,8 +40,18 @@ export default function useApplicationData (){
   //
 
   */
-  function spotUpdate(){
 
+
+  function spotUpdate(id, remove = false){
+    let spot = 0;
+    if (remove) {
+      spot--;
+    } else {
+      spot++;}
+    const days = state.days.filter(item =>{
+      return [item.appointments.find(appointmentID => appointmentID == id) ? item.spots += spot : null, item]
+    })
+    return setState({...state, days});
   }
 
 
@@ -54,11 +64,7 @@ export default function useApplicationData (){
       ...state.appointments,
       [id]: appointment
     };
-
-    
-
     console.log(`id: ${id}, interviewer: ${interview}`);
-
 
     return axios.put(`/api/appointments/${id}`, appointment)
     .then(response =>console.log("PUT res:",response))
@@ -66,9 +72,9 @@ export default function useApplicationData (){
       setState({
         ...state,
         appointments,
-        //days: spotUpdate()
       });
     })
+    //.then(() =>{spotUpdate(id, true);});
   };
 
   
@@ -87,9 +93,9 @@ export default function useApplicationData (){
       setState(() => ({
         ...state,
         appointments,
-        //days: spotUpdate()
       }));
     })
+    //.then(() =>{spotUpdate(id, false);});
   }
 
 
