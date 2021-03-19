@@ -101,10 +101,10 @@ export default function Appointment(props) {
         <Confirm
           onCancel={() => transition(SHOW)}
           onConfirm={() => {
-            transition(DELETING);
+            transition(DELETING, true);
             props.cancelInterview(props.id)
             .then(() => transition(EMPTY))
-            .catch(() => transition(ERROR_DELETE))
+            .catch(() => transition(ERROR_DELETE, true))
            
           }}
           message={DELETING}
