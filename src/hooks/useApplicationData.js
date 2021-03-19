@@ -37,25 +37,25 @@ export default function useApplicationData (){
    //On creation and deletion 
 
   How can we calculate how many spots should be available?
-  //
-
+  // during the setState
   */
 
-
-  function spotUpdate(id, remove = false){
-    let spot = 0;
-    if (remove) {
-      spot--;
-    } else {
-      spot++;}
-    const days = state.days.filter(item =>{
-      return [item.appointments.find(appointmentID => appointmentID == id) ? item.spots += spot : null, item]
-    })
-    return setState({...state, days});
+  function spotUpdate(add, remove) {
+   const changeDay = state.days.find(day => day.name === state.day)
+   const newDays = [...state.days];
+  
+   if (remove){
+     changeDay.spots++;
+   } else if (add) {
+     changeDay.spots--;
+   }
+   newDays[changeDay.id - 1] = changeDay;
+   return newDays;
   }
 
 
   function bookInterview(id, interview){
+    const add = !(state.appointments[id].interview);
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -72,6 +72,7 @@ export default function useApplicationData (){
       setState({
         ...state,
         appointments,
+        days: spotUpdate(true, null)
       });
     })
     //.then(() =>{spotUpdate(id, true);});
@@ -93,6 +94,7 @@ export default function useApplicationData (){
       setState(() => ({
         ...state,
         appointments,
+        days: spotUpdate(null, true),
       }));
     })
     //.then(() =>{spotUpdate(id, false);});
@@ -101,4 +103,7 @@ export default function useApplicationData (){
 
 
   return { state, setDay, bookInterview, cancelInterview };
+
+
+
 }
