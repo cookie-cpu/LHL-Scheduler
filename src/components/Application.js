@@ -56,7 +56,7 @@ export default function Application(props) {
     });
 
     console.log(`id: ${id}, interviewer: ${interview}`);
-    axios.put(`/api/appointments/${id}`, appointment)
+    return axios.put(`/api/appointments/${id}`, appointment)
     .then(response =>console.log("PUT res:",response))
   };
 
@@ -70,7 +70,7 @@ export default function Application(props) {
     
     console.log(`id for delete: ${id}`);
 
-    axios.delete(`/api/appointments/${id}`, )
+    return axios.delete(`/api/appointments/${id}`, )
     .then(response =>console.log("DELETE res:",response))
     .then(() =>{
       setState(() => ({
