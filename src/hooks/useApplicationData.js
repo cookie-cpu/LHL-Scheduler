@@ -29,6 +29,16 @@ export default function useApplicationData (){
   }, [])
 
 
+  /*
+  Where is the value of "spots" stored for each day?
+  When should that value change?
+  How can we calculate how many spots should be available?
+  */
+  function spotUpdate(){
+
+  }
+
+
   function bookInterview(id, interview){
     const appointment = {
       ...state.appointments[id],
