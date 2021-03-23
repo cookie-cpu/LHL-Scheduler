@@ -1,21 +1,23 @@
 import React from "react";
 
-import { render, cleanup, waitForElement, fireEvent, getByText, prettyDOM, getAllByTestId, getByAltText, getByPlaceholderText } from "@testing-library/react";
-
+import {
+  render, cleanup, waitForElement,
+  fireEvent, getByText, prettyDOM,
+  getAllByTestId, getByAltText, getByPlaceholderText, queryByText,
+} from "@testing-library/react";
 
 import Application from "components/Application";
 
 afterEach(cleanup);
 
-describe("Application", () => {
 
+
+describe("Application", () => {
 
 
   xit("renders without crashing", () => {
     render(<Application />);
   });
-
-
 
 
   it("defaults to Monday and changes the schedule when a new day is selected", () => {
@@ -29,44 +31,53 @@ describe("Application", () => {
 
 
 
-  // Render the Application.
-  // Wait until the text "Archie Cohen" is displayed.
-  // Click the "Add" button on the first empty appointment.
-  // Enter the name "Lydia Miller-Jones" into the input with the placeholder "Enter Student Name".
-  // Click the first interviewer in the list.
-  // Click the "Save" button on that same appointment.
-  // Check that the element with the text "Saving" is displayed.
-  // Wait until the element with the text "Lydia Miller-Jones" is displayed.
-  // Check that the DayListItem with the text "Monday" also has the text "no spots remaining".  
+
 
   it("loads data, books an interview and reduces the psots remaining for the first day by 1", async () => {
+    // Render the Application.
+    const { container, debug } = render(<Application />);
 
-    const { container } = render(<Application />);
-
-
-    await waitForElement(() => getByText(container, "Archie Cohen"))
-
+    // Wait until the text "Archie Cohen" is displayed.
+    await waitForElement(() => getByText(container, "Monday"))
+    //debug()
 
     const appointments = getAllByTestId(container, "appointment");
     //console.log(prettyDOM(appointments));
+    // const appointment = getAllByTestId(container, "appointment")[0];
+    const appointment = appointments[0];
 
+    //console.log(prettyDOM(appointments));  
+    //return
 
-    const appointment = getAllByTestId(container, "appointment")[0];
-    //console.log(prettyDOM(appointment));  
-
+    // Click the "Add" button on the first empty appointment.
     fireEvent.click(getByAltText(appointment, "Add"));
+    
 
+    // Enter the name "Lydia Miller-Jones" into the input with the placeholder "Enter Student Name".
     fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
       target: { value: "Lydia Miller-Jones" }
     });
 
+    // Click the first interviewer in the list.
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
-
+    // Click the "Save" button on that same appointment.
     fireEvent.click(getByText(appointment, "Save"));
 
-    console.log(prettyDOM(appointment));
 
+    // Check that the element with the text "Saving" is displayed.
+    expect(getByText(appointment, "Saving")).toBeInTheDocument();
+
+    // Wait until the element with the text "Lydia Miller-Jones" is displayed.
+    await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
+
+
+    // Check that the DayListItem with the text "Monday" also has the text "no spots remaining". 
+    const day = getAllByTestId(container, "day").find((day) =>
+      queryByText(day, "Monday")
+    );
+    expect(getByText(day, "no spots remaining")).toBeInTheDocument();
   })
+
 
 
 
