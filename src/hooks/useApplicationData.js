@@ -19,7 +19,7 @@ export default function useApplicationData (){
       axios.get('/api/interviewers')
     ])
     .then((response)=>{
-      console.log(response)
+     // console.log(response)
      setState(previous => (
        {...previous,
         days:response[0].data,
@@ -64,10 +64,10 @@ export default function useApplicationData (){
       ...state.appointments,
       [id]: appointment
     };
-    console.log(`id: ${id}, interviewer: ${interview}`);
+    //console.log(`id: ${id}, interviewer: ${interview}`);
 
     return axios.put(`/api/appointments/${id}`, appointment)
-    .then(response =>console.log("PUT res:",response))
+    //.then(response =>console.log("PUT res:",response))
     .then(() =>{
       setState({
         ...state,
@@ -86,10 +86,10 @@ export default function useApplicationData (){
     };
     const appointments = { ...state.appointments, [id]: newAppointment };
     
-    console.log(`id for delete: ${id}`);
+    //console.log(`id for delete: ${id}`);
 
     return axios.delete(`/api/appointments/${id}`, )
-    .then(response =>console.log("DELETE res:",response))
+    //.then(response =>console.log("DELETE res:",response))
     .then(() =>{
       setState(() => ({
         ...state,
