@@ -2,10 +2,16 @@
 
 
 ## Screenshots
+
+# Mobile View
 !["Mobile View"](https://raw.githubusercontent.com/cookie-cpu/LHL-Scheduler/master/docs/mobile_view.png)
+# Edit Fields
 !["Editing Fields"](https://raw.githubusercontent.com/cookie-cpu/LHL-Scheduler/master/docs/edit_fields.png)
+# Confirm Deletion
 !["Confirm Deletion"](https://raw.githubusercontent.com/cookie-cpu/LHL-Scheduler/master/docs/delete_confirm.png)
 
+## Gifs
+![Interview Creation](https://raw.githubusercontent.com/cookie-cpu/LHL-Scheduler/master/docs/create.gif)
 
 
 ## Features
