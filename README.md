@@ -1,28 +1,29 @@
 # Interview Scheduler
 
+
 ## Features
+***
+#### - Scheduler is a single page react app 
+#### - It allows users to book appointments through an external API 
+#### - Users can navigate the interface with a responsive, materially designed UI.
 
-### Scheduler is a single page react app 
-### It allows users to book appointments through an external API 
-### Users can navigate the interface with a responsive, materially designed UI.
 
-
-
+***
 # Scheduler In Action
 
-## Interview Creation
+### Interview Creation
 ![Interview Creation](https://raw.githubusercontent.com/cookie-cpu/LHL-Scheduler/master/docs/create.gif)
 
-## Interview Modification
+### Interview Modification
 ![Interview Creation](https://raw.githubusercontent.com/cookie-cpu/LHL-Scheduler/master/docs/edit.gif)
 
-## Interview Deletion
+### Interview Deletion
 ![Interview Creation](https://raw.githubusercontent.com/cookie-cpu/LHL-Scheduler/master/docs/delete.gif)
 
-## Example of Error Validation
+### Example of Error Validation
 ![Interview Creation](https://raw.githubusercontent.com/cookie-cpu/LHL-Scheduler/master/docs/error%20validation.gif)
 
-
+***
 # StoryBook and Cypress Testing Suites
 
 ## Cypress End to End Testing
