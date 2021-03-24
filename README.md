@@ -1,5 +1,28 @@
 # Interview Scheduler
 
+
+## Screenshots
+!["Mobile View"](https://raw.githubusercontent.com/cookie-cpu/LHL-Scheduler/master/docs/mobile_view.png)
+!["Editing Fields"](https://raw.githubusercontent.com/cookie-cpu/LHL-Scheduler/master/docs/edit_fields.png)
+!["Confirm Deletion"](https://raw.githubusercontent.com/cookie-cpu/LHL-Scheduler/master/docs/delete_confirm.png)
+
+
+
+## Features
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Setup
 
 Install dependencies with `npm install`.
